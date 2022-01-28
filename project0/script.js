@@ -15,6 +15,7 @@ var uncheckedCounter = 0
 function newTodo() {
   const task = prompt("Please enter your first task" , "task ...")
 
+  if (task == null) return;
   if(task != 0){
     checkCounter += 1;
     uncheckedCounter += 1;
@@ -43,8 +44,14 @@ function newTodo() {
     deleteButton.type = "button"
     deleteButton.id = "deleteButton"
     deleteButton.innerText = "Delete"
-    deleteButton.setAttribute("onClick", "deleteTodo(this.id)")
+    deleteButton.onclick = function () {
+      todolist.parentNode.removeChild(todolist)
+      checkCounter--
+      updateCounter()
+      alert("Removing item from the list")
+    }
     todolist.appendChild(deleteButton)
+
     
   }
 }
@@ -58,16 +65,6 @@ function checkTodo(id){
     uncheckedCounter += 1
     updateCounter()
   }
-}
-
-function deleteTodo(value){
-  const check = document.getElementById("mycheck" + value)
-  const remove  = document.getElementById(value)
-  remove.parentNode.removeChild(remove)
-  // if(check.clicked == true || check.checked== true){
-
-  // }
-  updateCounter()
 }
 
 function updateCounter(){
